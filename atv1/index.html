@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>My first three.js app</title>
+    <title>atv 01</title>
     <style>
         body { margin: 0; }
     </style>
@@ -18,6 +18,8 @@
     </script>
 </head>
 <body>
+    <h1 style="color: blueviolet;">A S W D -> MOVE O CUBO VERDE | U H J K -> MOVE CUBO VERMELHO</h1>
+
 <script type="module">
     import * as THREE from 'three';
 
@@ -34,7 +36,7 @@
     const cube = new THREE.Mesh( geometry, material );
     cube.position.x = -1; 
     scene.add( cube );
-
+    
     const g_c2 = new THREE.BoxGeometry( 1, 1, 1 );
     const m_c2 = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
 
@@ -48,27 +50,61 @@
     sphere.position.set(0, 2, 0); 
     scene.add(sphere);
 
+   
+   
     camera.position.z = 5;
 
+    const a = new THREE.Euler( 0, 1, 1.57, 'XYZ' );
+    const b = new THREE.Vector3( 1, 0, 1 );
+    
    
 
-    function animate() {
+   function animate() {
+        b.applyEuler(a);
+        
         requestAnimationFrame( animate );
-
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
+        
+        cube.rotation.x += b.x;
+        cube.rotation.y += b.x;
 
         cube2.rotation.x += 0.01;
         cube2.rotation.y += 0.02;
 
-		sphere.rotation.x += 0.01;
-        sphere.rotation.y += 0.01;
+		sphere.rotation.x += 0.05;
+        sphere.rotation.y += 0.05;
+        sphere.rotation.z += 0.2;
         
 
         renderer.render( scene, camera );
+    }    
+     animate();
+
+
+    document.addEventListener('keydown', function(event) {
+    const key = event.key;
+    const moveAmount = 0.1;
+        
+    if (key === 'a') {
+        cube.position.x -= moveAmount;
+    } else if (key === 'd') {
+        cube.position.x += moveAmount;
+    } else if (key === 'w') {
+        cube.position.y += moveAmount;
+    } else if (key === 's') {
+        cube.position.y -= moveAmount;
     }
 
-    animate();
+    if (key === 'h') {
+        cube2.position.x -= moveAmount;
+    } else if (key === 'k') {
+        cube2.position.x += moveAmount;
+    } else if (key === 'u') {
+        cube2.position.y += moveAmount;
+    } else if (key === 'j') {
+        cube2.position.y -= moveAmount;
+    }
+});
+    
 </script>
 </body>
 </html>

@@ -1,0 +1,103 @@
+Atividades de Interação
+
+
+
+Atividade 01: Controle de Movimento com KeyboardState em Three.js
+
+
+
+Objetivo:
+ Found
+Desenvolver uma aplicação interativa 3D usando Three.js onde o usuário pode controlar uma geometria na cena utilizando as teclas do teclado. A geometria deve se mover continuamente em uma direção diagonal e mudar de direção conforme as entradas do usuário, mantendo-se sempre dentro dos limites visíveis da cena.
+
+
+
+Requisitos:
+
+
+
+1. Configuração da Cena:
+
+   - Inicialize uma cena 3D utilizando Three.js.
+
+   - Adicione uma câmera.
+
+
+
+2. Criação da Geometria:
+
+   - Crie uma geometria simples, como um cubo ou esfera, e posicione-a no centro da cena
+
+
+
+3. Controle de Movimento:
+
+   - Utilize a biblioteca `THREEx.KeyboardState.js` para capturar os eventos de teclado.
+
+   - Implemente o movimento contínuo da geometria na cena. O objeto deve se mover em uma direção até que uma tecla seja pressionada.
+
+   - As teclas de direção (`up`, `down`, `left`, `right`) devem alterar a direção do movimento da geometria de acordo com a tecla pressionada.
+
+
+
+4. Dinâmica de Movimento:
+
+Ao pressionar uma tecla direcional, o objeto deve ajustar sua trajetória mantendo a componente de movimento original no eixo X e adicionando ou subtraindo na direção Y, criando um efeito de movimento diagonal alterado.
+
+
+
+5. Limites da Cena:
+
+   - Estabeleça limites dentro da área visível da câmera. Quando a geometria atingir um desses limites, ela deve inverter a direção do movimento em vez de sair da tela.
+
+
+
+6. Loop de Animação:
+
+   - Implemente um loop de animação que atualize a posição da geometria e renderize a cena repetidamente.
+
+
+
+
+Atividade 02: Enunciado da Atividade: Exploração Básica com OrbitControls em Three.js
+
+
+
+Objetivo:
+
+Criar uma aplicação simples em Three.js que utilize o OrbitControls para permitir aos usuários explorar livremente uma cena 3D. Esta atividade tem como foco familiarizar os usuários com os controles de câmera interativos, explorando as funcionalidades básicas de rotação, zoom e panorâmica.
+
+
+
+Requisitos:
+
+
+
+1) Configuração da Cena:
+
+
+Configure uma cena básica em Three.js com uma câmera e iluminação.
+
+
+
+Adicione um objeto 3D simples, como um cubo, uma esfera ou um toro, ao centro da cena.
+
+
+2) Integração do OrbitControls:
+
+
+Integre o OrbitControls para permitir a manipulação interativa da câmera em torno do objeto central.
+
+
+
+Configure o OrbitControls para responder às interações de mouse do usuário, permitindo rotacionar a câmera ao redor do objeto, zoom in e zoom out, e movimento panorâmico.
+
+
+3) Teste das Funcionalidades:
+
+
+Teste a resposta dos controles ao movimento do mouse, incluindo a sensibilidade do zoom e a suavidade da rotação.
+
+
+
+Ajuste as propriedades do OrbitControls como minDistance, maxDistance, maxPolarAngle, e minPolarAngle para limitar a interação do usuário e prevenir visuais indesejados

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>atv2</title>
+    <style>
+        body { margin: 0; }
+    </style>
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+<script type="module">
+   import * as THREE from 'three';
+ 
+
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( renderer.domElement );
+
+    const geometryCube = new THREE.BoxGeometry( 1, 1, 1 );
+    const materialCube = new THREE.MeshPhongMaterial( { color: 0x00ff00 } );
+    const cube = new THREE.Mesh( geometryCube, materialCube );
+    cube.position.x = -1; 
+    scene.add( cube );
+
+    
+    const geometryCylinder = new THREE.CylinderGeometry( 0.5, 0.5, 2, 32 );
+    const materialCylinder = new THREE.MeshPhongMaterial( { color: 0x003366FF } ); 
+    const cylinder = new THREE.Mesh( geometryCylinder, materialCylinder );
+    cylinder.position.set(0, 3, 0);
+    scene.add( cylinder );
+
+
+    const geometryDode = new THREE.DodecahedronGeometry(1);
+    const materialDode = new THREE.MeshPhongMaterial({ color: 0x0099CCCC });
+    const dode = new THREE.Mesh( geometryDode, materialDode);
+    dode.position.set(2, 0 , 1);
+    scene.add(dode);
+
+
+    const geometryOcta = new THREE.OctahedronGeometry( 1 );
+    const materialOcta = new THREE.MeshPhongMaterial({ color: 0xff0000 });
+    const octa = new THREE.Mesh( geometryOcta, materialOcta);
+    octa.position.set(5, 0 , 1);
+    scene.add(octa);
+
+    const geometryTorus= new THREE.TorusGeometry( 1, 0.4, 16, 100 );
+    const materialTorus = new THREE.MeshPhongMaterial({ color: 0x009966CC });
+    const torus = new THREE.Mesh( geometryTorus, materialTorus);
+    torus.position.set(5, 3, -3);  
+    scene.add(torus);
+
+    const ambientLight = new THREE.AmbientLight(0x0099CCCC, 0.5);
+    scene.add(ambientLight);
+
+    camera.position.z = 10;
+
+    // Função de animação
+    function animate() {
+        requestAnimationFrame( animate );
+
+        cube.rotation.x += 0.02;
+        cube.rotation.y += 0.01;
+        
+        cylinder.rotation.z += 0.01;
+        cylinder.rotation.y += 0.01;
+
+        dode.rotation.z += 0.01;
+        dode.rotation.y += 0.01;
+
+        octa.rotation.z += 0.001;
+        octa.rotation.y += 0.01;
+
+        torus.rotation.z += 0.001;
+        torus.rotation.y += 0.01;
+        torus.rotation.x += 0.01;
+
+        renderer.render( scene, camera );
+    }
+
+    animate();
+</script>
+</body>
+</html>
