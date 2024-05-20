@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>atv 03</title>
+    <style>
+        body { margin: 0; }
+    </style>
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script src="js/threex.keyboardstate.js"></script>
+    
+    
+    <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/threex.keyboardstate@master/threex.keyboardstate.js"></script>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+
+<script type="module">
+// Importações necessárias
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+// Criação da cena
+const scene = new THREE.Scene();
+
+// Configuração da câmera
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 5;
+
+// Configuração do renderizador
+const renderer = new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// Adicionando iluminação
+const light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.set(1, 1, 1).normalize();
+scene.add(light);
+
+// Adicionando um objeto 3D
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const material = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+
+// Configuração do OrbitControls
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.minDistance = 2;
+controls.maxDistance = 10;
+controls.maxPolarAngle = Math.PI / 2;
+controls.minPolarAngle = Math.PI / 3;
+
+// Função de animação
+function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+}
+
+// Inicia a animação
+animate();
+</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>atv4</title>
+    <style>
+        body { margin: 0; }
+    </style>
+</head>
+<body>
+    <script type="module">
+        import * as THREE from 'https://cdn.skypack.dev/three@0.136.0/build/three.module.js';
+        import { OrbitControls } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls.js';
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        
+
+        // Habilitar sombras
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+        const geometryCylinder = new THREE.CylinderGeometry(0.5, 0.5, 2, 32);
+        const materialCylinder = new THREE.MeshPhongMaterial({ color: 0x003366FF });
+        const cylinder = new THREE.Mesh(geometryCylinder, materialCylinder);
+        cylinder.position.set(-2, 0, 0);
+        scene.add(cylinder);
+
+        const geometryDode = new THREE.DodecahedronGeometry(1);
+        const materialDode = new THREE.MeshPhongMaterial({ color: 0x0099CCCC });
+        const dode = new THREE.Mesh(geometryDode, materialDode);
+        dode.position.set(0, 0, 0);
+        scene.add(dode);
+
+        const geometryOcta = new THREE.OctahedronGeometry(1);
+        const materialOcta = new THREE.MeshPhongMaterial({ color: 0xff0000 });
+        const octa = new THREE.Mesh(geometryOcta, materialOcta);
+        octa.position.set(2.5, 0, 0);
+        scene.add(octa);
+
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(1, 1, 1);
+        scene.add(directionalLight);
+       
+
+        ambientLight.intensity = 0.1;
+        directionalLight.intensity = 0.5;
+
+        camera.position.z = 5;
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.update();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+            cylinder.rotation.z += 0.01;
+            cylinder.rotation.y += 0.01;
+            dode.rotation.z += 0.01;
+            dode.rotation.y += 0.01;
+            octa.rotation.z += 0.001;
+            octa.rotation.y += 0.01;
+        }
+        animate();
+    </script>
+</body>
+</html>
