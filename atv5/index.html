@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>atv5</title>
+    <style>
+        body { margin: 0; }
+    </style>
+</head>
+<body>
+    <script type="module">
+        import * as THREE from 'https://cdn.skypack.dev/three@0.136.0/build/three.module.js';
+        import { OrbitControls } from 'https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls.js';
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Habilitar sombra
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+        // Criar geometrias
+        const geometryCylinder = new THREE.CylinderGeometry(0.5, 0.5, 2, 32);
+        const geometryDode = new THREE.DodecahedronGeometry(1);
+        const geometryOcta = new THREE.OctahedronGeometry(1);
+
+        // Carregar texturas
+        const textureLoader = new THREE.TextureLoader();
+        const texture1 = textureLoader.load('textures/py.jpg');
+        const texture2 = textureLoader.load('textures/pz.jpg');
+        const texture3 = textureLoader.load('textures/px.jpg');
+
+        // Criar materiais
+        const materialCylinder = new THREE.MeshPhongMaterial({ map: texture1, color: 0x003366 });
+        const materialDode = new THREE.MeshPhongMaterial({ map: texture2, color: 0x0099CC, flatShading: true });
+        const materialOcta = new THREE.MeshPhongMaterial({ map: texture3, color: 0xff0000, specular: 0xff0000 });
+
+        // Criar malhas com geometrias e materiais
+        const cylinder = new THREE.Mesh(geometryCylinder, materialCylinder);
+        const dode = new THREE.Mesh(geometryDode, materialDode);
+        const octa = new THREE.Mesh(geometryOcta, materialOcta);
+
+        // Posicionar objetos
+        cylinder.position.set(-2, 0, 0);
+        dode.position.set(0, 0, 0);
+        octa.position.set(2.5, 0, 0);
+
+        // Adicionar sombra aos objetos
+        cylinder.castShadow = true; 
+        dode.castShadow = true; 
+        octa.castShadow = true; 
+
+        // Adicionar objetos à cena
+        scene.add(cylinder);
+        scene.add(dode);
+        scene.add(octa);
+
+        // Adicionar luz
+        const light = new THREE.PointLight(0xffffff, 1);
+        light.position.set(0, 0, 10);
+        scene.add(light);
+
+        // Carregar mapeamento de cubo
+        const cubeTextureLoader = new THREE.CubeTextureLoader();
+        const cubeTexture = cubeTextureLoader.load([
+            'textures/px.jpg',
+            'textures/nx.jpg',
+            'textures/py.jpg',
+            'textures/ny.jpg',
+            'textures/pz.jpg',
+            'textures/nz.jpg'
+        ]);
+
+        // Aplicar mapeamento de cubo aos materiais
+        materialCylinder.envMap = cubeTexture;
+        materialDode.envMap = cubeTexture;
+        materialOcta.envMap = cubeTexture;
+
+        // Função de animação
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotacionar os objetos
+            cylinder.rotation.x += 0.01;
+            cylinder.rotation.y += 0.01;
+            dode.rotation.x += 0.01;
+            dode.rotation.y += 0.01;
+            octa.rotation.z += 0.01;
+
+            // Renderizar a cena
+            renderer.render(scene, camera);
+        }
+
+        // Atualizar o tamanho da janela ao redimensionar
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }, false);
+
+        // Iniciar a animação
+        animate();
+    </script>
+</body>
+</html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>atv2</title>
+    <title>atv4</title>
     <style>
         body { margin: 0; }
     </style>
@@ -18,7 +18,6 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        // Habilitar sombras
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
@@ -26,60 +25,56 @@
         const materialCylinder = new THREE.MeshPhongMaterial({ color: 0x003366FF });
         const cylinder = new THREE.Mesh(geometryCylinder, materialCylinder);
         cylinder.position.set(-2, 0, 0);
-        cylinder.castShadow = true; // Permitir que o objeto gere sombras
+        cylinder.castShadow = true; 
         scene.add(cylinder);
 
         const geometryDode = new THREE.DodecahedronGeometry(1);
         const materialDode = new THREE.MeshPhongMaterial({ color: 0x0099CCCC });
         const dode = new THREE.Mesh(geometryDode, materialDode);
         dode.position.set(0, 0, 0);
-        dode.castShadow = true; // Permitir que o objeto gere sombras
+        dode.castShadow = true; 
         scene.add(dode);
 
         const geometryOcta = new THREE.OctahedronGeometry(1);
         const materialOcta = new THREE.MeshPhongMaterial({ color: 0xff0000 });
         const octa = new THREE.Mesh(geometryOcta, materialOcta);
         octa.position.set(2.5, 0, 0);
-        octa.castShadow = true; // Permitir que o objeto gere sombras
+        octa.castShadow = true; 
         scene.add(octa);
 
-        // Luz ambiente
+        
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
         scene.add(ambientLight);
 
-        // Luz direcional (simulando luz do sol)
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
         directionalLight.position.set(5, 10, 5);
-        directionalLight.castShadow = true; // Permitir que a luz gere sombras
+        directionalLight.castShadow = true; 
         scene.add(directionalLight);
 
-        // Configurações de sombra para a luz direcional
-        directionalLight.shadow.mapSize.width = 1024; // Largura do mapa de sombra
-        directionalLight.shadow.mapSize.height = 1024; // Altura do mapa de sombra
-        directionalLight.shadow.camera.near = 0.5; // Distância mínima em que as sombras serão renderizadas
-        directionalLight.shadow.camera.far = 100; // Distância máxima em que as sombras serão renderizadas
-        directionalLight.shadow.camera.top = 10; // Tamanho do volume de sombra
+        
+        directionalLight.shadow.mapSize.width = 1024; 
+        directionalLight.shadow.mapSize.height = 1024; 
+        directionalLight.shadow.camera.near = 0.5; 
+        directionalLight.shadow.camera.far = 100; 
+        directionalLight.shadow.camera.top = 10; 
         directionalLight.shadow.camera.bottom = -10;
         directionalLight.shadow.camera.left = -10;
         directionalLight.shadow.camera.right = 10;
 
-        // Luz de ponto
         const pointLight = new THREE.PointLight(0xffffff, 1);
-        pointLight.position.set(0, 3, 0); // Posição da luz
-        pointLight.castShadow = true; // Permitir que a luz gere sombras
+        pointLight.position.set(0, 3, 0); 
+        pointLight.castShadow = true; 
         scene.add(pointLight);
 
-        // Luz spot
         const spotLight = new THREE.SpotLight(0xffffff, 1);
-        spotLight.position.set(0, 5, 0); // Posição da luz
-        spotLight.castShadow = true; // Permitir que a luz gere sombras
+        spotLight.position.set(0, 5, 0); 
+        spotLight.castShadow = true; 
         scene.add(spotLight);
 
-        // Configurações de sombra para a luz spot
-        spotLight.shadow.mapSize.width = 1024; // Largura do mapa de sombra
-        spotLight.shadow.mapSize.height = 1024; // Altura do mapa de sombra
-        spotLight.shadow.camera.near = 1; // Distância mínima em que as sombras serão renderizadas
-        spotLight.shadow.camera.far = 100; // Distância máxima em que as sombras serão renderizadas
+        spotLight.shadow.mapSize.width = 1024; 
+        spotLight.shadow.mapSize.height = 1024; 
+        spotLight.shadow.camera.near = 1; 
+        spotLight.shadow.camera.far = 100; 
 
         ambientLight.intensity = 0.1;
         directionalLight.intensity = 0.5;
