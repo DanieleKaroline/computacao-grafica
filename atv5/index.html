@@ -18,90 +18,53 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
-        // Habilitar sombra
-        renderer.shadowMap.enabled = true;
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-        // Criar geometrias
-        const geometryCylinder = new THREE.CylinderGeometry(0.5, 0.5, 2, 32);
-        const geometryDode = new THREE.DodecahedronGeometry(1);
-        const geometryOcta = new THREE.OctahedronGeometry(1);
-
-        // Carregar texturas
         const textureLoader = new THREE.TextureLoader();
-        const texture1 = textureLoader.load('textures/py.jpg');
-        const texture2 = textureLoader.load('textures/pz.jpg');
-        const texture3 = textureLoader.load('textures/px.jpg');
+        const brownTexture = textureLoader.load('textures/brown.jpg');
+        const cerebroTexture = textureLoader.load('textures/cerebro.jpg');
+        const medievalTexture = textureLoader.load('textures/medieval.jpg');
 
-        // Criar materiais
-        const materialCylinder = new THREE.MeshPhongMaterial({ map: texture1, color: 0x003366 });
-        const materialDode = new THREE.MeshPhongMaterial({ map: texture2, color: 0x0099CC, flatShading: true });
-        const materialOcta = new THREE.MeshPhongMaterial({ map: texture3, color: 0xff0000, specular: 0xff0000 });
+        const lambertMaterial = new THREE.MeshLambertMaterial({ map: medievalTexture });
+        const phongMaterial = new THREE.MeshPhongMaterial({ map: cerebroTexture });
 
-        // Criar malhas com geometrias e materiais
-        const cylinder = new THREE.Mesh(geometryCylinder, materialCylinder);
-        const dode = new THREE.Mesh(geometryDode, materialDode);
-        const octa = new THREE.Mesh(geometryOcta, materialOcta);
+        const geometryCube = new THREE.BoxGeometry(2, 2, 2);
+        const geometrySphere = new THREE.SphereGeometry(1, 32, 32);
+        const geometryCylinder = new THREE.CylinderGeometry(1, 1, 2, 32);
 
-        // Posicionar objetos
-        cylinder.position.set(-2, 0, 0);
-        dode.position.set(0, 0, 0);
-        octa.position.set(2.5, 0, 0);
+        const cube = new THREE.Mesh(geometryCube, lambertMaterial);
+        const sphere = new THREE.Mesh(geometrySphere, phongMaterial);
+        const cylinder = new THREE.Mesh(geometryCylinder, lambertMaterial);
 
-        // Adicionar sombra aos objetos
-        cylinder.castShadow = true; 
-        dode.castShadow = true; 
-        octa.castShadow = true; 
+        cube.position.x = -5;
+        sphere.position.x = 0;
+        cylinder.position.x = 5;
 
-        // Adicionar objetos à cena
-        scene.add(cylinder);
-        scene.add(dode);
-        scene.add(octa);
+        cube.castShadow = true;
+        sphere.castShadow = true;
+        cylinder.castShadow = true;
 
-        // Adicionar luz
-        const light = new THREE.PointLight(0xffffff, 1);
-        light.position.set(0, 0, 10);
+        scene.add(cube, sphere, cylinder);
+
+        const light = new THREE.DirectionalLight(0xffffff, 0.5);
+        light.position.set(5, 10, 5);
         scene.add(light);
 
-        // Carregar mapeamento de cubo
-        const cubeTextureLoader = new THREE.CubeTextureLoader();
-        const cubeTexture = cubeTextureLoader.load([
-            'textures/px.jpg',
-            'textures/nx.jpg',
-            'textures/py.jpg',
-            'textures/ny.jpg',
-            'textures/pz.jpg',
-            'textures/nz.jpg'
-        ]);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambientLight);
 
-        // Aplicar mapeamento de cubo aos materiais
-        materialCylinder.envMap = cubeTexture;
-        materialDode.envMap = cubeTexture;
-        materialOcta.envMap = cubeTexture;
+        const controls = new OrbitControls(camera, renderer.domElement);
+        camera.position.z = 7;
 
-        // Função de animação
         function animate() {
             requestAnimationFrame(animate);
-
-            // Rotacionar os objetos
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            sphere.rotation.x += 0.01;
+            sphere.rotation.y += 0.01;
             cylinder.rotation.x += 0.01;
             cylinder.rotation.y += 0.01;
-            dode.rotation.x += 0.01;
-            dode.rotation.y += 0.01;
-            octa.rotation.z += 0.01;
-
-            // Renderizar a cena
             renderer.render(scene, camera);
+            controls.update();
         }
-
-        // Atualizar o tamanho da janela ao redimensionar
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }, false);
-
-        // Iniciar a animação
         animate();
     </script>
 </body>
