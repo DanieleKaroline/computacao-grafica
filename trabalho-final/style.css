@@ -1,0 +1,27 @@
+#game-container {
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#board {
+    width: 200px;
+    height: 400px;
+    border: 2px solid black;
+    margin: 0 auto;
+    position: relative;
+}
+
+.block {
+    width: 19.5px;
+    height: 19.5px;
+    background-color: #ddd;
+    border: 1px solid #fff;
+    position: absolute;
+}
+
+#score {
+    margin-top: 20px;
+}
+
+
