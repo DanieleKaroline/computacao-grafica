@@ -1,6 +1,6 @@
-const boardWidth = 10;
-const boardHeight = 20;
-const blockSize = 20; // Tamanho do bloco em pixels
+const boardWidth = 15; // Número de colunas do tabuleiro
+const boardHeight = 20; // Número de linhas do tabuleiro
+const blockSize = 30; // Tamanho do bloco em pixels
 
 let board = [];
 let currentPiece;
@@ -14,7 +14,6 @@ function createBoard() {
     }
 }
 
-//cria  cada peça
 function createPiece() {
     const pieces = [
         [[1, 1, 1, 1]], // I
@@ -32,7 +31,6 @@ function createPiece() {
     return piece;
 }
 
-//cria a borda que limita o espaço
 function drawBoard() {
     let boardHtml = '';
     for (let row = 0; row < boardHeight; row++) {
@@ -43,9 +41,10 @@ function drawBoard() {
         }
     }
     document.getElementById('board').innerHTML = boardHtml;
+    document.getElementById('board').style.width = `${boardWidth * blockSize}px`; // Ajusta a largura do tabuleiro
+    document.getElementById('board').style.height = `${boardHeight * blockSize}px`; // Ajusta a altura do tabuleiro
 }
 
-//cria o contorno da peça
 function drawPiece() {
     currentPiece.forEach((row, rowIndex) => {
         row.forEach((block, colIndex) => {
@@ -79,7 +78,6 @@ function movePieceDown() {
     }
 }
 
-//checa se uma peça está na outra
 function checkCollision(piece, x, y) {
     for (let row = 0; row < piece.length; row++) {
         for (let col = 0; col < piece[row].length; col++) {
@@ -117,13 +115,11 @@ function clearLines() {
         }
     }
     if (linesCleared > 0) {
-        score += linesCleared * 100; // Aumenta a pontuação conforme as linhas são limpas
+        score += linesCleared * 100;
     }
 
-    // Atualiza a pontuação na tela
     document.getElementById('score-value').textContent = score;
 
-    // Redesenha o tabuleiro após limpar as linhas
     drawBoard();
 }
 
@@ -172,9 +168,6 @@ function rotatePiece() {
     }
 }
 
-
-
-// Inicialização do jogo
 function init() {
     createBoard();
     currentPiece = createPiece();
@@ -183,10 +176,7 @@ function init() {
     drawBoard();
     drawPiece();
     document.addEventListener('keydown', handleKeyPress);
-
-    // Loop principal do jogo - movimento automático das peças
     setInterval(movePieceDown, 1000);
 }
-
 
 init();
