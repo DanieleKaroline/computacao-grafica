@@ -1,4 +1,3 @@
-/* Reset de margin e padding para o body */
 body {
     margin: 0;
     padding: 0;
@@ -6,7 +5,6 @@ body {
     background-color: #f0f0f0; /* Cor de fundo do corpo da página */
 }
 
-/* Estilos para o container do jogo */
 #game-container {
     display: flex;
     flex-direction: column;
@@ -15,7 +13,7 @@ body {
     height: 100vh; /* Altura total da viewport */
 }
 
-/* Estilos para o tabuleiro do jogo */
+
 #board {
     background-color: #202e42; /* Cor de fundo do tabuleiro */
     border: 2px solid #ccc; /* Borda do tabuleiro */
