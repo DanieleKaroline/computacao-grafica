@@ -184,6 +184,7 @@ function updatePiecePosition() {
     }
 }
 
+
 function animate() {
     requestAnimationFrame(animate);
     dropPiece(); 
